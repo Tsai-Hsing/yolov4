@@ -1701,10 +1701,8 @@ void test_detector( char *datacfg, char *cfgfile, char *weightfile, char *filena
     float nms = .45;    // 0.4F
     while (1) { 
 	char *pch = strstr(filename,"@");
-	//printf("\n\n\n\n<<<<<<<<<<<<<<<<<%s",pch);
-        if (filename && pch == NULL) {
-            //printf("\n\n\n\n8888888888888888888888888888<<<<<<<<<<<<<<<<<%s",pch);
-	    strncpy(input, filename, 256);
+        if (filename && !pch) {
+            strncpy(input, filename, 256);
             if (strlen(input) > 0)
                 if (input[strlen(input) - 1] == 0x0d) input[strlen(input) - 1] = 0;
         }
@@ -1715,7 +1713,7 @@ void test_detector( char *datacfg, char *cfgfile, char *weightfile, char *filena
             //if (!input) break;
             //strtok(input, "\n");
 	    // count = count +1;
-            char *para = filename;//"Tsai-Hsing.Lu@quantatw.com";
+            char *para = "Tsai-Hsing.Lu@quantatw.com";
 	    if(count == 2) break;
             char prefix[100] = "";
             char *testpath = "/mnt/2c67bd82-3031-40f8-8f53-58564ba23509/Graphics/yolo/test/%s/test.txt";
@@ -1765,11 +1763,9 @@ void test_detector( char *datacfg, char *cfgfile, char *weightfile, char *filena
              network_predict(net, X);
              printf("Try Very Hard:");
              printf("%s: Predicted in %f seconds.\n\n\n\n\n\n", path, what_time_is_it_now()-time);
-	     int nboxes = 0;
+             int nboxes = 0;
              detection *dets = get_network_boxes(&net, im.w, im.h, thresh, hier_thresh, 0, 1, &nboxes, letter_box);
-             //printf("gogogogogog %2.4f %2.4f %2.4f %2.4f\n", dets[0].bbox.x, dets[0].bbox.y, dets[0].bbox.w, dets[0].bbox.h);
-	     if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
-	     //printf("9999999999999%s", l.classes);
+             if (nms) do_nms_sort(dets, nboxes, l.classes, nms);
 	     draw_detections_v3(im, dets, nboxes, thresh, names, alphabet, l.classes, ext_output);
              free_detections(dets, nboxes);
 	     if(outfile){
@@ -1795,8 +1791,7 @@ void test_detector( char *datacfg, char *cfgfile, char *weightfile, char *filena
             }    
             free_image(im);
             free_image(sized);
-	    char *pch = strstr(filename, "@");
-            if (filename && pch == NULL) break;
+            if (filename) break;
 	    }
         }
         //image im;
