@@ -62,7 +62,7 @@ class test_detector:
                     }
                     for obj in returnarr:
                         if obj['class'] == tmparr[4]:
-                            obj['classResult'].append([{'score':tmparr[5],'boundingBox':[tmparr[0], tmparr[1], tmparr[2], tmparr[3]]}])
+                            obj['classResult'].append({'score':tmparr[5],'boundingBox':[tmparr[0], tmparr[1], tmparr[2], tmparr[3]]})
                         else:
                             returnarr.append(tmpval)
                     if len(returnarr) == 0:
