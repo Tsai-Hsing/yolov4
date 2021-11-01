@@ -495,7 +495,7 @@ def mainPredict(image, path, modelName, userDict , graph, sess):
         class_names = userDict['meta']
         class_colors = userDict['class_colors']
         lib = userDict['lib']
-        imagepath = path.decode() + '/original.' + image.format.lower()
+        imagepath = path.decode() + '/original.' + userDict["FileExtension"]#image.format.lower()
         #imagepath = os.path.abspath(os.getcwd()) + '/original.' + image.format.lower()
         image.save(imagepath)
         image, r = image_detection(lib, imagepath, network, class_names, class_colors, .25)
