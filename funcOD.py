@@ -508,14 +508,14 @@ def mainPredict(image, path, modelName, userDict , graph, sess):
             y2 = round((bbox[1] * 2 + bbox[3]) / 2)  
             obj = {
                         'class':cls,
-                        'classResult':[{'score': str(score),'boundingBox':[str(x1), str(y1), str(x2), str(y2)]}]
+                        'classResult':[{'score': str(score),'BoundingBox':[str(x1), str(y1), str(x2), str(y2)],'Value':[str(x1), str(y1), str(x2), str(y2)]}]
                     }
             if len(data['result']) == 0:
                 data['result'].append(obj)
             else:
                 for obj in data['result']:
                     if obj['class'] == cls:
-                        obj['classResult'].append({'score': str(score),'boundingBox':[str(x1), str(y1), str(x2), str(y2)]})
+                        obj['classResult'].append({'score': str(score),'BoundingBox':[str(x1), str(y1), str(x2), str(y2)],'Value':[str(x1), str(y1), str(x2), str(y2)]})
                     else:
                         data['result'].append(obj)
         print(json.dumps(data))
